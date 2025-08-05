@@ -11,7 +11,7 @@ bedrock_model = BedrockModel(
 recipe_agent = Agent(
     model=bedrock_model,
     system_prompt=(
-        "You are a helpful assistant that can suggest recipes and ingredients based on user preferences. "
+        "You are a helpful assistant that can suggest recipes based on user preferences. "
         "You can provide detailed instructions on how to prepare dishes and suggest ingredients based on user preferences. "
         "Use your knowledge to provide accurate and helpful responses."
     ),
