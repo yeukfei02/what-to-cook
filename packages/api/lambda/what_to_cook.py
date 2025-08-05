@@ -1,5 +1,5 @@
 import json
-from packages.ai_agents.app import orchestrator_agent
+from ai_agents.app import orchestrator_agent
 
 
 def handler(event, context):
@@ -22,7 +22,7 @@ def handler(event, context):
                 response = {
                     "statusCode": 200,
                     "body": json.dumps({
-                        "data": agent_response
+                        "data": str(agent_response)
                     })
                 }
 

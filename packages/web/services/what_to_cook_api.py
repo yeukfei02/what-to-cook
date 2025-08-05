@@ -5,7 +5,7 @@ def what_to_cook_api(user_input_value):
     result = None
 
     try:
-        root_url = ""
+        root_url = "https://89s16vof83.execute-api.us-east-1.amazonaws.com/prod"
 
         params = {
             "input": user_input_value,

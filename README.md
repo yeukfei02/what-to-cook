@@ -25,4 +25,7 @@ $ python app.py
 ```zsh
 // copy .env file
 $ cp .env.sample .env
+
+// fix pydantic lib in lambda layer
+$ pip install --platform manylinux2014_aarch64 --target=./ --implementation cp --python-version 3.12 --only-binary=:all: --upgrade pydantic
 ```
