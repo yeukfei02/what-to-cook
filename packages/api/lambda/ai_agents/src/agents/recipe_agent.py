@@ -6,6 +6,7 @@ bedrock_model = BedrockModel(
     model_id="us.deepseek.r1-v1:0",
     region_name="us-east-1",
     temperature=0.5,
+    max_tokens=450
 )
 
 SYSTEM_PROMPT = """
@@ -31,6 +32,9 @@ SYSTEM_PROMPT = """
     3. Main Ingredients
     4. Estimated Cooking Time
     5. Why This Recipe Fits
+
+    ### Additional Rule:
+    Limit your output to no more than 450 words. Be concise while still including all required information.
 """
 
 recipe_agent = Agent(

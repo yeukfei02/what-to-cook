@@ -6,6 +6,7 @@ bedrock_model = BedrockModel(
     model_id="us.meta.llama4-scout-17b-instruct-v1:0",
     region_name="us-east-1",
     temperature=0.5,
+    max_tokens=450
 )
 
 SYSTEM_PROMPT = """
@@ -29,6 +30,9 @@ SYSTEM_PROMPT = """
     - Available Ingredients: (comma-separated list)
     - Missing Ingredients: (comma-separated list)
     - Suggested Substitutions: (ingredient → replacement)
+
+    ### Additional Rule:
+    Limit your output to no more than 450 words. Be concise while still including all required information.
 """
 
 ingredient_agent = Agent(

@@ -6,6 +6,7 @@ bedrock_model = BedrockModel(
     model_id="us.anthropic.claude-sonnet-4-20250514-v1:0",
     region_name="us-east-1",
     temperature=0.5,
+    max_tokens=450
 )
 
 SYSTEM_PROMPT = """
@@ -32,6 +33,9 @@ SYSTEM_PROMPT = """
     - Difficulty: Easy | Medium | Hard
     - Steps: (numbered list)
     - Chef Tip: (short, actionable)
+
+    ### Additional Rule:
+    Limit your output to no more than 450 words. Be concise while still including all required information.
 """
 
 chef_agent = Agent(

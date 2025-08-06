@@ -32,4 +32,4 @@ def send_message_to_sqs(body_input):
         )
         print(f"response = {response}")
     except Exception as e:
-        print(f"send_message_to_sqs_queue error = {e}")
+        print(f"send_message_to_sqs error = {e}")
