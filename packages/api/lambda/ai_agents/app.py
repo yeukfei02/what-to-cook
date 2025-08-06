@@ -11,6 +11,7 @@ bedrock_model = BedrockModel(
     model_id="us.anthropic.claude-3-5-sonnet-20241022-v2:0",
     region_name="us-east-1",
     temperature=0.5,
+    max_tokens=450
 )
 
 SYSTEM_PROMPT = """
@@ -48,6 +49,9 @@ SYSTEM_PROMPT = """
     1. Summary paragraph of available cooking options.
     2. Table of dishes with the above details.
     3. Recommended next step (start cooking or shop for missing ingredients).
+
+    ### Additional Rule:
+    Limit your output to no more than 450 words. Be concise while still including all required information.
 
     Your goal: Help the user quickly decide what to cook using the three specialized tools effectively.
 """
