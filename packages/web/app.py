@@ -20,9 +20,9 @@ async def handle_submit_button_click(user_input_value):
         print(f"data = {data}")
 
         if data:
-            agent_response.content = data
+            agent_response_html.content = data
         else:
-            agent_response.content = 'No response from the api. Please try again.'
+            agent_response_html.content = 'No response from the api. Please try again.'
 
 
 with ui.column().classes('w-full h-screen flex justify-center items-center'):
@@ -37,8 +37,9 @@ with ui.column().classes('w-full h-screen flex justify-center items-center'):
     ui.button('Submit', on_click=lambda: handle_submit_button_click(
         user_input.value)).classes('w-2/12 my-4')
 
-    ui.label('Agent Response:').classes('text-lg font-bold')
-
-    agent_response = ui.html('Waiting for response...')
+    with ui.column().classes('w-3/6 p-3'):
+        ui.label(
+            'Agent Response:').classes('text-lg font-bold')
+        agent_response_html = ui.html('Waiting for response...')
 
 ui.run(title="What to Cook?")
