@@ -62,8 +62,8 @@ orchestrator_agent = Agent(
     callback_handler=None,
     tools=[
         chef_assistant,
-        # ingredient_assistant,
-        # recipe_assistant
+        ingredient_assistant,
+        recipe_assistant
     ]
 )
 
