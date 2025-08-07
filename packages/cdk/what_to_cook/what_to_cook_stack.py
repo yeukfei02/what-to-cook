@@ -171,9 +171,6 @@ class WhatToCookStack(Stack):
         api.add_method("GET")  # GET /what-to-cook
 
     def create_app_runner(self):
-        # create sqs
-        self.create_sqs()
-
         # create ecr repository
         ecr_repo = _ecr.Repository(
             self, "WhatToCookEcrRepo", repository_name="what-to-cook-ecr")

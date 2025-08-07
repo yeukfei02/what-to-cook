@@ -16,8 +16,6 @@ ai agents: `packages/api/lambda/ai_agents`
 
 cdk: `packages/cdk`
 
-app runner: `packages/app_runner`
-
 web: `packages/web`
 
 ## Requirement
