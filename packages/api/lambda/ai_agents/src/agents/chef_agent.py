@@ -1,6 +1,5 @@
 from strands import Agent
 from strands.models import BedrockModel
-from strands_tools import generate_image_stability
 
 
 bedrock_model = BedrockModel(
@@ -22,14 +21,12 @@ SYSTEM_PROMPT = """
     - Suggest cooking method variations if possible (e.g., oven, stovetop, air fryer).
     - Highlight potential pitfalls and how to avoid them.
     - Adapt instructions based on user’s skill level and available equipment.
-    - Generate a realistic image of the final dish using the `generate_image_stability` function.
 
     ### Rules:
     - Never invent ingredients — only use those provided by the orchestrator.
     - Keep instructions clear and short (max 6 steps unless asked otherwise).
     - Provide a difficulty rating: Easy, Medium, or Hard.
     - Always include at least one practical cooking tip.
-    - Use `generate_image_stability(prompt: str)` to generate an image of the final dish.
     - The `prompt` must be a short, vivid description of what the final dish looks like.
     - Example: "Golden crispy chicken thighs with rosemary, served with mashed potatoes and green beans."
 
@@ -38,8 +35,6 @@ SYSTEM_PROMPT = """
     - Difficulty: Easy | Medium | Hard
     - Steps: (numbered list)
     - Chef Tip: (short, actionable)
-    - Image Prompt: (the description passed to `generate_image_stability`)
-    - Image: [result of `generate_image_stability(prompt)`]
 
     ### Additional Rule:
     Limit your output to no more than 450 words. Be concise while still including all required information.
@@ -48,5 +43,5 @@ SYSTEM_PROMPT = """
 chef_agent = Agent(
     model=bedrock_model,
     system_prompt=SYSTEM_PROMPT,
-    tools=[generate_image_stability],
+    tools=[],
 )
