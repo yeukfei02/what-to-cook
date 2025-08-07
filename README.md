@@ -14,7 +14,7 @@ what to cook is a multi llm agent for user to find what to eat or what to cook b
 
 ai agents: `packages/api/lambda/ai_agents`
 
-api/cdk: `packages/api`
+cdk: `packages/cdk`
 
 web: `packages/web`
 

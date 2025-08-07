@@ -6,7 +6,10 @@ from aws_cdk import (
     Stack,
     aws_lambda as _lambda,
     aws_apigateway as _apigateway,
-    aws_sqs as _sqs
+    aws_sqs as _sqs,
+    aws_ecr as _ecr,
+    aws_iam as _iam,
+    aws_apprunner as _apprunner,
 )
 from aws_cdk.aws_iam import (
     ManagedPolicy
@@ -22,6 +25,13 @@ class WhatToCookStack(Stack):
         self.create_infra()
 
     def create_infra(self):
+        # create lambda and api gateway
+        self.create_lambda_and_api_gateway()
+
+        # create app runner
+        # self.create_app_runner()
+
+    def create_lambda_and_api_gateway(self):
         # create sqs
         queue = self.create_sqs()
 
@@ -159,3 +169,60 @@ class WhatToCookStack(Stack):
 
         api = api_gateway.root.add_resource("what-to-cook")
         api.add_method("GET")  # GET /what-to-cook
+
+    def create_app_runner(self):
+        # create ecr repository
+        ecr_repo = _ecr.Repository(
+            self, "WhatToCookEcrRepo", repository_name="what-to-cook-ecr")
+
+        # create iam role
+        iam_role = _iam.Role(
+            self,
+            "WhatToCookAppRunnerIamRole",
+            role_name="what-to-cook-app-runner-iam-role",
+            assumed_by=_iam.ServicePrincipal("build.apprunner.amazonaws.com")
+        )
+
+        # create iam policy statement
+        policy_statement = _iam.PolicyStatement(
+            actions=["ecr:*"],
+            resources=["*"]
+        )
+
+        # create iam policy
+        policy = _iam.Policy(
+            self,
+            "WhatToCookAppRunnerIamPolicy",
+            policy_name="what-to-cook-app-runner-iam-policy",
+            statements=[policy_statement]
+        )
+
+        # attach iam policy to iam role
+        policy.attach_to_role(iam_role)
+
+        # create app runner
+        image_tag = "latest"
+
+        _apprunner.CfnService(
+            self,
+            "WhatToCookAppRunnerService",
+            service_name="what-to-cook-app-runner-service",
+            source_configuration=_apprunner.CfnService.SourceConfigurationProperty(
+                auto_deployments_enabled=True,
+                authentication_configuration=_apprunner.CfnService.AuthenticationConfigurationProperty(
+                    access_role_arn=iam_role.role_arn
+                ),
+                image_repository=_apprunner.CfnService.ImageRepositoryProperty(
+                    image_identifier=f"{ecr_repo.repository_uri}:{image_tag}",
+                    image_repository_type="ECR",
+                    image_configuration=_apprunner.CfnService.ImageConfigurationProperty(
+                                          port="80"
+                                          # start_command="nginx -g daemon off;"
+                    )
+                )
+            ),
+            instance_configuration=_apprunner.CfnService.InstanceConfigurationProperty(
+                cpu="1 vCPU",
+                memory="2 GB"
+            )
+        )
