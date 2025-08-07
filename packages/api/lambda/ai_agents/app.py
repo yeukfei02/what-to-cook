@@ -63,7 +63,7 @@ orchestrator_agent = Agent(
     tools=[
         chef_assistant,
         ingredient_assistant,
-        recipe_assistant
+        # recipe_assistant
     ]
 )
 

@@ -4,16 +4,6 @@ from services.send_message_to_sqs_api import send_message_to_sqs_api
 from services.what_to_cook_api import what_to_cook_api
 
 
-def handle_radio_button_change(e):
-    print(f"radio_value = {e.value}")
-
-
-def handle_file_upload(e):
-    print(f"file name = {e.name}")
-    print(f"file content = {e.content}")
-    print(f"file type = {e.type}")
-
-
 def handle_user_input(value):
     print(f"value = {value}")
 
@@ -40,18 +30,6 @@ async def handle_submit_button_click(user_input_value):
 with ui.column().classes('w-full h-screen flex justify-center items-center'):
     ui.label('What to Cook?').classes('text-3xl font-bold mb-3')
 
-    options = ['Image', 'Text']
-    radio = ui.radio({x: '' for x in options}, value='Image',
-                     on_change=lambda e: handle_radio_button_change(e)).props('inline')
-
-    with ui.teleport(f'#{radio.html_id} > div:nth-child(1) .q-radio__label'):
-        ui.label("Image").classes('text-lg')
-    with ui.teleport(f'#{radio.html_id} > div:nth-child(2) .q-radio__label'):
-        ui.label("Text").classes('text-lg')
-
-    image_upload = ui.upload(on_upload=lambda e: handle_file_upload(
-        e)).props('accept=".png, .jpeg, .jpg"').classes('w-3/6')
-
     user_input = ui.textarea(
         # label='Enter your ingredients',
         placeholder='Enter your ingredients here',
@@ -61,11 +39,6 @@ with ui.column().classes('w-full h-screen flex justify-center items-center'):
 
     submit_button = ui.button('Submit', on_click=lambda: handle_submit_button_click(
         user_input.value)).classes('w-2/12 my-4')
-
-    # dynamic show ui based on radio button value
-    image_upload.bind_visibility_from(radio, 'value', lambda v: v == 'Image')
-    user_input.bind_visibility_from(radio, 'value', lambda v: v == 'Text')
-    submit_button.bind_visibility_from(radio, 'value', lambda v: v == 'Text')
 
     with ui.column().classes('w-3/6 p-3'):
         ui.label(
