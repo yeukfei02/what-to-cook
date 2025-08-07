@@ -12,7 +12,7 @@ what to cook is a multi llm agent for user to find what to eat or what to cook b
 - aws lambda
 - nicegui
 
-ai agents: `packages/api/lambda/ai_agents`
+ai agents: `packages/cdk/lambda/ai_agents`
 
 cdk: `packages/cdk`
 
