@@ -17,4 +17,6 @@ RUN curl -LsSf https://astral.sh/uv/install.sh | sh
 
 RUN uv sync
 
+EXPOSE 9000
+
 CMD ["uv", "run", "app.py"]
