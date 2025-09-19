@@ -2,13 +2,20 @@ import json
 import requests
 
 
-def what_to_cook_api():
+def what_to_cook_api(user_input_value):
     result = None
 
     try:
-        root_url = "https://89s16vof83.execute-api.us-east-1.amazonaws.com/prod"
+        root_url = "http://localhost:8080"
 
-        response = requests.get(f"{root_url}/what-to-cook")
+        payload = json.dumps({
+            "prompt": user_input_value
+        })
+
+        response = requests.post(
+            f"{root_url}/invocations",
+            data=payload
+        )
         print(f"response = {response}")
 
         if response:
@@ -18,8 +25,7 @@ def what_to_cook_api():
             if response_json:
                 data = response_json["data"]
                 if data:
-                    decoded_text = json.loads(f"{data}")
-                    result = decoded_text.replace("\n", "<br>")
+                    result = data.replace("\n", "<br>")
     except Exception as e:
         print(f"what_to_cook_api error = {e}")
 
