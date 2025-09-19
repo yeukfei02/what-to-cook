@@ -13,6 +13,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
-RUN pip install -r requirements.txt
+RUN curl -LsSf https://astral.sh/uv/install.sh | sh
 
-CMD ["python", "app.py"]
+RUN uv sync
+
+CMD ["uv", "run", "app.py"]

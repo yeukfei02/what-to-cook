@@ -5,16 +5,12 @@ what to cook is a multi llm agent for user to find what to eat or what to cook b
 ## Tech Stack
 
 - python
+- uv
 - strands agent
-- aws cdk
-- aws sqs
-- aws api gateway
-- aws lambda
+- bedrock agentcore
 - nicegui
 
-ai agents: `packages/cdk/lambda/ai_agents`
-
-cdk: `packages/cdk`
+ai agents: `packages/ai_agents`
 
 web: `packages/web`
 
@@ -23,26 +19,14 @@ web: `packages/web`
 - install python (v3.12)
 
 ```zsh
-// create virtualenv
-$ python -m venv .venv
-
-// activate virtualenv
-$ source .venv/bin/activate
-or
-$ sh .venv/bin/activate
-
 // install dependencies
-$ pip install -r requirements.txt
+$ uv sync
 
 // run in local
-$ python app.py
+$ uv run app.py
 ```
 
 ```zsh
 // copy .env file
 $ cp .env.sample .env
-
-// fix pydantic lib in lambda layer
-$ cd packages/api/lambda/layer/python 
-$ pip install --platform manylinux2014_aarch64 --target=./ --implementation cp --python-version 3.12 --only-binary=:all: --upgrade pydantic
 ```

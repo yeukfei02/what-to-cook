@@ -1,6 +1,4 @@
-import asyncio
 from nicegui import ui
-from services.send_message_to_sqs_api import send_message_to_sqs_api
 from services.what_to_cook_api import what_to_cook_api
 
 
@@ -8,17 +6,13 @@ def handle_user_input(value):
     print(f"value = {value}")
 
 
-async def handle_submit_button_click(user_input_value):
+def handle_submit_button_click(user_input_value):
     if user_input_value:
         ui.notify('Please wait, processing your request...')
 
         agent_response_html.content = "Waiting for response..."
 
-        send_message_to_sqs_api(user_input_value)
-
-        await asyncio.sleep(3)
-
-        data = what_to_cook_api()
+        data = what_to_cook_api(user_input_value)
         print(f"data = {data}")
 
         if data:
@@ -45,4 +39,4 @@ with ui.column().classes('w-full h-screen flex justify-center items-center'):
             'Agent Response:').classes('text-lg font-bold')
         agent_response_html = ui.html('Waiting for response...')
 
-ui.run(title="What to Cook?")
+ui.run(title="What to Cook?", port=9000)
